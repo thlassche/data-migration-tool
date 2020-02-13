@@ -79,13 +79,12 @@ class SetValueAttributeCondition extends AbstractHandler implements HandlerInter
                     [$this->source->addDocumentPrefix($this->eavAttributeTable)],
                     ['attribute_id', 'attribute_code']
                 );
-            self::$eavAttributeData = $select->getAdapter()->fetchAll($select);
-        }
-        foreach (self::$eavAttributeData as $attribute) {
-            if ($attribute['attribute_id'] == $attributeIdOfRecord && $attribute['attribute_code'] == $attributeCode) {
-                return true;
+            $res = $select->getAdapter()->fetchAll($select);
+            foreach ($res as $attribute) {
+                self::$eavAttributeData[$attribute['attribute_id'].'|'.$attribute['attribute_code']] = true;
             }
+
         }
-        return false;
+        return isset(self::$eavAttributeData[$attributeIdOfRecord.'|'.$attributeCode]);
     }
 }
