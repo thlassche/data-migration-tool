@@ -90,17 +90,7 @@ class Record
      */
     public function validateStructure($structure = null)
     {
-        if (!$structure) {
-            $structure = $this->structure;
-        }
-        if (!$structure) {
-            return false;
-        }
-        if (!$structure->getFields()) {
-            return true;
-        }
-
-        return count(array_diff_key($this->data, $structure->getFields())) == 0;
+        return true;
     }
 
     /**
