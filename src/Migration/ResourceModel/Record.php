@@ -135,11 +135,6 @@ class Record
      */
     public function setValue($columnName, $value)
     {
-        if ($this->structure && !$this->structure->hasField($columnName)) {
-            throw new Exception(
-                "Record structure does not contain field $columnName on {$this->getDocument()->getName()}"
-            );
-        }
         $this->data[$columnName] = $value;
         return $this;
     }
@@ -196,10 +191,6 @@ class Record
      */
     public function getFields()
     {
-        if (empty($this->getStructure())) {
-            throw new Exception("Structure not set");
-        }
-
         return array_keys($this->structure->getFields());
     }
 }
